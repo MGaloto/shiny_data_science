@@ -13,10 +13,6 @@ El usuario podrá interactuar con un rango de fechas.
 ![.](panelcontrol.png)
 
 
-![.](panelcontrol.png)
-
-
-
 Libreria:
 
 ![.](www/hc.png)
