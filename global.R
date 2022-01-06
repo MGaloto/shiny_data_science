@@ -142,6 +142,56 @@ default <- max(default)
 
 
 
+# --------------------------------------------------------------------------------------- #
+
+# Volumen acumulado
+
+
+
+
+MSFTvol = (subset(MSFT, Fecha >= "2022-01-03" & Fecha <= "2022-01-05") %>% summarise(volumen = sum(Volumen)))$volumen
+
+GOOGLvol = (subset(GOOGL, Fecha >= "2022-01-03" & Fecha <= "2022-01-05") %>% summarise(volumen = sum(Volumen)))$volumen
+
+AAPLvol = (subset(AAPL, Fecha >= "2022-01-03" & Fecha <= "2022-01-05") %>% summarise(volumen = sum(Volumen)))$volumen
+
+AMZNvol = (subset(AMZN, Fecha >= "2022-01-03" & Fecha <= "2022-01-05") %>% summarise(volumen = sum(Volumen)))$volumen
+
+
+
+Acciones_vol = c(
+  "GOOGL Volumen",
+  "MSFT Volumen",
+  "AAPL Volumen",
+  "AMZN Volumen")
+
+
+Acumulado_vol = c(
+  GOOGLvol,
+  MSFTvol,
+  AAPLvol,
+  AMZNvol)
+
+df_vol = data.frame(Acciones_vol, Acumulado_vol) %>% arrange(-Acumulado_vol)
+
+
+
+# --------------------------------------------------------------------------------------- #
+
+# Pie Chart
+
+
+pie_chart = df_vol %>% 
+  hchart('pie', hcaes(x = Acciones_vol, y = Acumulado_vol, color = viridis::rocket(n = 4))) %>% 
+  hc_add_theme(hc_theme_flatdark()) %>% 
+  hc_tooltip(pointFormat = '<b> Sumatoria de Volumen Operado en USD: </b>  {point.y}') %>% 
+  hc_title(text = 'Pie Chart participacion Volumen Operado',
+           style = list(fontSize = '15px', fontWeight = 'bold')) %>% 
+  hc_subtitle(text = 'Volumen',
+              style = list(fontSize = '16px', color = "#ffffff")) %>% 
+  hc_credits(enabled = TRUE, text = '@MGaloto',
+             style = list(fontSize = '16px', color = "#ffffff"))
+
 
 
 
