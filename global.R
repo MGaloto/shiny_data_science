@@ -108,7 +108,11 @@ custom = viridis::mako(n = 4)
 
 bar_plot = df %>% 
   arrange(desc(Variacion)) %>% 
-  hchart('column', hcaes(x = Acciones, y = Variacion, color = custom)) %>% 
+  hchart('column', hcaes(x = Acciones, y = Variacion, color = custom),
+         showInLegend = F,
+         maxSize = "15%",
+         dataLabels = list(enabled = TRUE,
+                           format = '% {point.y: .2f}')) %>% 
   hc_add_theme(hc_theme_flatdark()) %>% 
   hc_tooltip(pointFormat = '<b>Variacion %: </b> {point.y} <br> ' ) %>% 
   hc_title(text = 'Acciones Tecnologicas',
@@ -121,7 +125,11 @@ bar_plot = df %>%
            tickColor = "#ffffff") %>% 
   hc_xAxis(labels = list(style = list(color = "#ffffff")),
            tickColor = "#ffffff")
-  
+bar_plot
+
+
+
+
 
 
 # --------------------------------------------------------------------------------------- #
@@ -139,6 +147,7 @@ default <- seq.Date(today() - 182, today() - 180, by = 1)
 default <- default[!wday(default) %in% c(1, 7)]
 
 default <- max(default) 
+
 
 
 
@@ -190,8 +199,7 @@ pie_chart = df_vol %>%
   hc_subtitle(text = 'Volumen',
               style = list(fontSize = '16px', color = "#ffffff")) %>% 
   hc_credits(enabled = TRUE, text = '@MGaloto',
-             style = list(fontSize = '16px', color = "#ffffff"))
-
+             style = list(fontSize = '16px', color = "#ffffff")) 
 
 
 

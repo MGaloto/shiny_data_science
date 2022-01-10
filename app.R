@@ -1,6 +1,6 @@
 
 
-
+source('global.R', encoding = 'UTF-8')
 
 # ui ------------------------------------------------------------------
 
@@ -21,7 +21,7 @@ ui <- fluidPage(
             sliderTextInput(inputId = "trajectory", 
                             label = "Date Range:", 
                             choices = choices,
-                            selected = c(default - 5000, max(choices)))
+                            selected = c(default , max(choices)))
 
 
 # mainpanel ---------------------------------------------------------------
@@ -94,7 +94,11 @@ server <- function(input, output) {
     
     bar_plot = df %>% 
       arrange(desc(Variacion)) %>% 
-      hchart('column', hcaes(x = Acciones, y = Variacion, color = custom)) %>% 
+      hchart('column', hcaes(x = Acciones, y = Variacion, color = custom),
+             showInLegend = F,
+             maxSize = "15%",
+             dataLabels = list(enabled = TRUE,
+                               format = '% {point.y: .2f}')) %>% 
       hc_add_theme(hc_theme_flatdark()) %>% 
       hc_tooltip(pointFormat = '<b>Variacion %: </b> {point.y} <br> ' ) %>% 
       hc_title(text = 'Acciones Tecnologicas',
